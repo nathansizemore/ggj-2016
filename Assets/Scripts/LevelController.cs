@@ -3,23 +3,22 @@ using System.Collections;
 
 public class LevelController : MonoBehaviour {
 
-    public Transform[] enemySpawns;
+    public GameObject[] enemies;
     
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
+// DON"T USE START
+
 	// Update is called once per frame
 	void Update () {
 	
 	}
     
     public void begin(){
+          enemies = GameObject.FindGameObjectsWithTag("Human");
         // create and position all powerups, catchers, etc.
-        for (int i = 0; i < enemySpawns.Length; i++){
-            
+        for (int i = 0; i < enemies.Length; i++){
+
             // instantiate and position enemies
+            enemies[i].GetComponent<Human>().active = true;
             
         }
     }

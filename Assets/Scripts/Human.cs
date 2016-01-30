@@ -8,6 +8,8 @@ public class Human : MonoBehaviour
     private float tSinceLastChickenTarget = 0f;
     private GameObject[] chickens;
     
+    public bool active =false;
+    
     private void Start()
     {
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
@@ -16,6 +18,8 @@ public class Human : MonoBehaviour
 
     private void Update()
     {
+        if (!active) return;
+        
         tSinceLastChickenTarget += Time.deltaTime;
         if (tSinceLastChickenTarget > ChaseInterval)
         {

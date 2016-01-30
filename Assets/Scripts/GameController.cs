@@ -19,8 +19,10 @@ public class GameController : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
+          SceneManager.UnloadScene(1);
        chicken = GameObject.FindGameObjectWithTag("Chicken").GetComponent<Chicken>();
 	   startGame();
+        
 	}
 	
 	// Update is called once per frame
@@ -69,6 +71,11 @@ public class GameController : MonoBehaviour {
         }
        activeLevelScene = SceneManager.GetSceneAt(1); 
        lvlController = GameObject.FindGameObjectWithTag("LevelGeometry").GetComponent<LevelController>();
+       
+       // call transition, after transition call start day
+       
+       
+       // HOLD this
        startDay();
     }
     
@@ -77,7 +84,7 @@ public class GameController : MonoBehaviour {
         chicken.gameObject.transform.position =spawnPoint.transform.position;
         chicken.gameObject.transform.rotation = spawnPoint.transform.rotation;
         
-        lvlController.begin
+        lvlController.begin();
         
     }
   
