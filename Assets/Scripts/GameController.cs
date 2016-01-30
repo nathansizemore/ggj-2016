@@ -9,16 +9,24 @@ public class GameController : MonoBehaviour {
     int currentDay;
     Scene activeLevelScene;
     
+    Chicken chicken;
+    
+    Powerup queuedPowerup;
+    
+    LevelController lvlController;
+    
+    public Text powerupText;
     
 	// Use this for initialization
 	void Start () {
+       chicken = GameObject.FindGameObjectWithTag("Player").GetComponent<Chicken>();
 	   startGame();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	   if (Input.GetKeyDown(KeyCode.Space)){
-           nextRound();
+         //  nextRound();
        }
 	}
     
@@ -29,12 +37,28 @@ public class GameController : MonoBehaviour {
     void nextRound(){
         currentDay += 1;
         setDayText();
-        // load next level
         StartCoroutine(LoadNextLevel());
+    }
+    
+    public void setQueuedPowerup(Powerup p){
+        queuedPowerup = p;
+        if (p != null){
+            powerupText.text = p.getDisplayText();
+        }else{
+            powerupText.text = "None";
+        }
+        
     }
     
     void setDayText(){
         dayText.text = "Day " + currentDay;
+    }
+    
+    public void usePowerup(){
+        // if global thing, do here 
+        
+        // cleanup
+        setQueuedPowerup(null);    
     }
     
     IEnumerator LoadNextLevel() {
@@ -43,8 +67,18 @@ public class GameController : MonoBehaviour {
         if (activeLevelScene != null){
             SceneManager.UnloadScene(activeLevelScene.name);
         }
-       activeLevelScene = SceneManager.GetSceneAt(1);
-       
+       activeLevelScene = SceneManager.GetSceneAt(1); 
+       lvlController = GameObject.FindGameObjectWithTag("LevelGeometry").GetComponent<LevelController>();
+       startDay();
     }
     
+    void startDay(){
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
+        chicken.gameObject.transform.position =spawnPoint.transform.position;
+        chicken.gameObject.transform.rotation = spawnPoint.transform.rotation;
+        
+        lvlController.begin();
+        
+    }
+  
 }
