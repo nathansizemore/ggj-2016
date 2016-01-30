@@ -79,6 +79,8 @@ public class GameController : MonoBehaviour {
        startDay();
     }
     
+    
+    
     void startDay(){
         GameObject spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
         chicken.gameObject.transform.position =spawnPoint.transform.position;
