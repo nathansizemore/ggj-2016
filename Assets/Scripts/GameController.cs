@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour {
         chicken.gameObject.transform.position =spawnPoint.transform.position;
         chicken.gameObject.transform.rotation = spawnPoint.transform.rotation;
         
-        lvlController.begin
+        lvlController.begin();
         
     }
   
