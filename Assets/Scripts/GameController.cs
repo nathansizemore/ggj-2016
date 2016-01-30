@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-       chicken = GameObject.FindGameObjectWithTag("Player").GetComponent<Chicken>();
+       chicken = GameObject.FindGameObjectWithTag("Chicken").GetComponent<Chicken>();
 	   startGame();
 	}
 	
@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour {
         chicken.gameObject.transform.position =spawnPoint.transform.position;
         chicken.gameObject.transform.rotation = spawnPoint.transform.rotation;
         
-        lvlController.begin();
+        lvlController.begin
         
     }
   
