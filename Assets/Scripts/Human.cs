@@ -22,6 +22,17 @@ public class Human : MonoBehaviour
     {
         if (!active) return;
         
+        chickens = GameObject.FindGameObjectsWithTag("Chicken");
+        if (chickens.Length < 2)
+        {
+            navMeshAgent.speed += 1;
+            ChaseInterval -= 0.3f;
+            if (ChaseInterval < 0.1)
+            {
+                ChaseInterval = 0.1f;
+            }
+        }
+        
         tSinceLastChickenTarget += Time.deltaTime;
         if (tSinceLastChickenTarget > ChaseInterval)
         {
@@ -40,7 +51,7 @@ public class Human : MonoBehaviour
     
     private void CheckCurrentAngle()
     {
-        float angle = this.gameObject.transform.rotation.y;
+        float angle = this.gameObject.transform.rotation.eulerAngles.y;
         if (angle < 180)
         {
             UpImageSet.SetActive(true);

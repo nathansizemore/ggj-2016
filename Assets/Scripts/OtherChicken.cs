@@ -48,6 +48,15 @@ public class OtherChicken : MonoBehaviour
         AdjustSpritesBasedOnAngle();
 	}
     
+    private void OnCollisionEnter(Collision collision)
+    {
+        bool caught = collision.gameObject.CompareTag("Human");
+        if (caught)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    
     private void SwapSpriteUp()
     {
         UpImageSet.gameObject.SetActive(true);
@@ -99,7 +108,7 @@ public class OtherChicken : MonoBehaviour
         // If walkable, return, else recurse
         NavMeshHit hit;
         bool blocked = NavMesh.Raycast(transform.position, nextPos, out hit, NavMesh.AllAreas);
-		Debug.DrawLine(transform.position, nextPos, blocked ? Color.red : Color.green);
+		//Debug.DrawLine(transform.position, nextPos, blocked ? Color.red : Color.green);
         
 		if (blocked)
         {
@@ -127,18 +136,22 @@ public class OtherChicken : MonoBehaviour
         if (currentAngle < 90)
         {
             currentFacingDirection = Position.Up;
+            SwapSpriteUp();
         }
         else if (currentAngle < 180)
         {
             currentFacingDirection = Position.Right;
+            SwapSpriteRight();
         }
         else if (currentAngle < 270)
         {
             currentFacingDirection = Position.Down;
+            SwapSpriteDown();
         }
         else if (currentAngle < 360)
         {
             currentFacingDirection = Position.Left;
+            SwapSpriteLeft();
         }
     }
 }
