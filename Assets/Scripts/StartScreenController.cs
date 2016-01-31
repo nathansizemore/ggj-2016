@@ -21,8 +21,16 @@ public class StartScreenController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	   if (Input.GetButtonDown("Fire1") && !fadingOut){
-           startFadeOut();
+        if (Input.GetButtonDown("Fire1") && !fadingOut){
+            bool startScreen = this.gameObject.CompareTag("Start");
+            if (startScreen)
+            {
+                Invoke("doneFading", 1f);
+            }
+            else
+            {
+                startFadeOut();
+            }
        }
 	}
     
@@ -42,7 +50,6 @@ public class StartScreenController : MonoBehaviour {
         {
             SceneManager.LoadScene("Final");
         }
-        
     }
     
     

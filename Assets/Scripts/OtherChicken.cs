@@ -12,6 +12,8 @@ public class OtherChicken : MonoBehaviour
     
     public AudioSource cluck;
     
+    private GameController gc;
+    
     private enum Position
     {
         Up,
@@ -28,6 +30,7 @@ public class OtherChicken : MonoBehaviour
     
 	void Start()
     {
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         groundBoundsBox = GameObject.FindGameObjectWithTag("GroundBounds");
         SwapSpriteUp();
@@ -62,6 +65,7 @@ public class OtherChicken : MonoBehaviour
     
     void killChicken(){
         Destroy(this.gameObject);
+        gc.nextRound();
     }
     
     private void SwapSpriteUp()
