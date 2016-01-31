@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour {
          nextRound();
     }
     
-    void nextRound(){
+    public void nextRound(){
         currentDay += 1;
         if (currentDay > 7){
             gameOverWin();

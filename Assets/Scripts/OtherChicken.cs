@@ -24,8 +24,11 @@ public class OtherChicken : MonoBehaviour
     private GameObject groundBoundsBox;
     public bool active = false;
     
+    private GameController gc;
+    
 	void Start()
     {
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         groundBoundsBox = GameObject.FindGameObjectWithTag("GroundBounds");
         SwapSpriteUp();
@@ -53,6 +56,7 @@ public class OtherChicken : MonoBehaviour
         bool caught = collision.gameObject.CompareTag("Human");
         if (caught)
         {
+            gc.nextRound();
             Destroy(this.gameObject);
         }
     }
