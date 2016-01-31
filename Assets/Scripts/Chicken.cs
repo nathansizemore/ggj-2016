@@ -70,6 +70,16 @@ public class Chicken : MonoBehaviour {
         }
 	}
     
+    private void OnCollisionEnter(Collision collision)
+    {
+        bool caught = collision.gameObject.CompareTag("Human");
+        if (caught)
+        {
+            Destroy(this.gameObject);
+            StartGameOverScreen();
+        }
+    }
+    
     private void MoveChickenUp()
     {
         SwapSpriteUp();
@@ -229,5 +239,10 @@ public class Chicken : MonoBehaviour {
                 }
                 break;
         }
+    }
+    
+    private void StartGameOverScreen()
+    {
+        // Hook up to Dusty's code here
     }
 }
