@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class StartScreenController : MonoBehaviour {
 
     public Animator fadeOutAnimator;
+    public GameObject Image1;
+    public GameObject Image2;
     
     bool fadingOut = false;
     
+    bool onSecondStory = false;
     public GameObject BackgroundMusicGO;
     
 	// Use this for initialization
@@ -29,7 +32,13 @@ public class StartScreenController : MonoBehaviour {
             }
             else
             {
-                startFadeOut();
+                if (onSecondStory) {
+                    startFadeOut();
+                } else {
+                    Image1.SetActive(false);
+                    Image2.SetActive(true);
+                    onSecondStory = true;
+                }
             }
        }
 	}
