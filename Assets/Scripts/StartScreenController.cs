@@ -8,9 +8,15 @@ public class StartScreenController : MonoBehaviour {
     public Animator fadeOutAnimator;
     
     bool fadingOut = false;
+    
+    public GameObject BackgroundMusicGO;
+    
 	// Use this for initialization
 	void Start () {
-	
+	   GameObject backgroundController = GameObject.FindGameObjectWithTag("BackgroundMusic");
+       if (backgroundController == null){
+           backgroundController = GameController.Instantiate(BackgroundMusicGO, Vector3.zero, Quaternion.identity) as GameObject;
+       }
 	}
 	
 	// Update is called once per frame
