@@ -21,12 +21,18 @@ public class GameController : MonoBehaviour {
     
     public DayCompleteOverlay dayCompleteOverlay;
     
+    public GameObject BackgroundMusicGo;
 	// Use this for initialization
 	void Start () {
        SceneManager.UnloadScene(1);
        chicken = GameObject.FindGameObjectWithTag("Chicken").GetComponent<Chicken>();
 	   startGame();
-        
+       GameObject backgroundController = GameObject.FindGameObjectWithTag("BackgroundMusic");
+       if (backgroundController == null){
+           backgroundController = GameController.Instantiate(BackgroundMusicGo, Vector3.zero, Quaternion.identity) as GameObject;
+       }
+       backgroundController.GetComponent<BackgroundMusicController>().playInGame();
+       
 	}
 	
 	// Update is called once per frame

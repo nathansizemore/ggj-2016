@@ -19,6 +19,7 @@ public class Chicken : MonoBehaviour {
     public SpriteRenderer RightSprite0;
     public SpriteRenderer RightSprite1;
     
+    public AudioSource[] caughtSounds;
    
 	GameController gc;
     
@@ -75,8 +76,13 @@ public class Chicken : MonoBehaviour {
         bool caught = collision.gameObject.CompareTag("Human");
         if (caught)
         {
-            Destroy(this.gameObject);
-            StartGameOverScreen();
+            Debug.Log("caught");
+            for (int i = 0; i < caughtSounds.Length; i++){
+                caughtSounds[i].Play();
+            }
+           
+            Invoke("StartGameOverScreen", .5f);
+            //StartGameOverScreen();
         }
     }
     
@@ -225,6 +231,7 @@ public class Chicken : MonoBehaviour {
     
     private void StartGameOverScreen()
     {
+         Destroy(this.gameObject);
         gc.gameOver();
     }
 }

@@ -10,6 +10,8 @@ public class OtherChicken : MonoBehaviour
     private float tSinceLastDestination = 0f;
     private float DestinationChangeInterval = 3f;
     
+    public AudioSource cluck;
+    
     private enum Position
     {
         Up,
@@ -53,8 +55,13 @@ public class OtherChicken : MonoBehaviour
         bool caught = collision.gameObject.CompareTag("Human");
         if (caught)
         {
-            Destroy(this.gameObject);
+           cluck.Play();
+           Invoke("killChicken", .5f);
         }
+    }
+    
+    void killChicken(){
+        Destroy(this.gameObject);
     }
     
     private void SwapSpriteUp()
