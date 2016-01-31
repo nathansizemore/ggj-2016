@@ -22,14 +22,15 @@ public class Countdown : MonoBehaviour {
 	}
     
     public void startCountdown(){
-        
+        this.gameObject.SetActive(true);
+        currentCount = 3;
         anim.SetTrigger("start");
         cText.text = "3";
         Invoke("tick", 1f);
     }
     
     void tick(){
-        Debug.Log("tick");
+        //Debug.Log("tick");
         currentCount -=1;
         if (currentCount < 0){
             if (OnElapsed != null){

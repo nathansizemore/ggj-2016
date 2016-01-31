@@ -10,6 +10,10 @@ public class OtherChicken : MonoBehaviour
     private float tSinceLastDestination = 0f;
     private float DestinationChangeInterval = 3f;
     
+    public AudioSource cluck;
+    
+    private GameController gc;
+    
     private enum Position
     {
         Up,
@@ -26,6 +30,7 @@ public class OtherChicken : MonoBehaviour
     
 	void Start()
     {
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         groundBoundsBox = GameObject.FindGameObjectWithTag("GroundBounds");
         SwapSpriteUp();
@@ -53,8 +58,14 @@ public class OtherChicken : MonoBehaviour
         bool caught = collision.gameObject.CompareTag("Human");
         if (caught)
         {
-            Destroy(this.gameObject);
+           cluck.Play();
+           Invoke("killChicken", .5f);
         }
+    }
+    
+    void killChicken(){
+        Destroy(this.gameObject);
+        gc.nextRound();
     }
     
     private void SwapSpriteUp()

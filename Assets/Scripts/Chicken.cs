@@ -19,6 +19,7 @@ public class Chicken : MonoBehaviour {
     public SpriteRenderer RightSprite0;
     public SpriteRenderer RightSprite1;
     
+    public AudioSource[] caughtSounds;
    
 	GameController gc;
     
@@ -75,8 +76,13 @@ public class Chicken : MonoBehaviour {
         bool caught = collision.gameObject.CompareTag("Human");
         if (caught)
         {
-            Destroy(this.gameObject);
-            StartGameOverScreen();
+            Debug.Log("caught");
+            for (int i = 0; i < caughtSounds.Length; i++){
+                caughtSounds[i].Play();
+            }
+           
+            Invoke("StartGameOverScreen", .5f);
+            //StartGameOverScreen();
         }
     }
     
@@ -107,25 +113,7 @@ public class Chicken : MonoBehaviour {
         this.transform.rotation = Quaternion.Euler(0, 90, 0);
         this.transform.position += this.transform.forward * Time.deltaTime * ChickenSpeed;
     }
-    
       
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Powerup")
-        {
-             gc.setQueuedPowerup(other.gameObject.GetComponent<Powerup>());
-        }
-        Destroy(other.gameObject);
-    }
-    
-    void usePowerup(){
-        // use it here
-        
-        
-        // clean it up
-        gc.setQueuedPowerup(null);
-        
-    }
-    
     private void SwapSpriteUp()
     {
         UpImageSet.gameObject.SetActive(true);
@@ -243,6 +231,7 @@ public class Chicken : MonoBehaviour {
     
     private void StartGameOverScreen()
     {
-        // Hook up to Dusty's code here
+         Destroy(this.gameObject);
+        gc.gameOver();
     }
 }
