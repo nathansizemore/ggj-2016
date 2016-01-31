@@ -22,7 +22,8 @@ public class Countdown : MonoBehaviour {
 	}
     
     public void startCountdown(){
-        
+        this.gameObject.SetActive(true);
+        currentCount = 3;
         anim.SetTrigger("start");
         cText.text = "3";
         Invoke("tick", 1f);
