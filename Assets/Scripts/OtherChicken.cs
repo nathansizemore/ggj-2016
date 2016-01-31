@@ -1,30 +1,14 @@
 ﻿using UnityEngine;
 
-public class OtherChicken : MonoBehaviour {
-
-	public float ChickenSpeed = 20.5f;
-    
+public class OtherChicken : MonoBehaviour 
+{    
     public GameObject UpImageSet;
     public GameObject DownImageSet;
     public GameObject LeftImageSet;
     public GameObject RightImageSet;
     
-    
-    public SpriteRenderer UpSprite0;
-    public SpriteRenderer UpSprite1;
-    public SpriteRenderer DownSprite0;
-    public SpriteRenderer DownSprite1;
-    public SpriteRenderer LeftSprite0;
-    public SpriteRenderer LeftSprite1;
-    public SpriteRenderer RightSprite0;
-    public SpriteRenderer RightSprite1;
-    
-    
-    public float SpriteSwapInterval = 0.150f; // Seconds
-    private float tSinceLastSpriteSwap = 0;
-    
     private float tSinceLastDestination = 0f;
-    private float DestinationChangeInterval = 1f;
+    private float DestinationChangeInterval = 3f;
     
     private enum Position
     {
@@ -33,7 +17,7 @@ public class OtherChicken : MonoBehaviour {
         Left,
         Right
     };
-    private uint currentSprite = 0;
+    
     private Position currentFacingDirection;
     
     private NavMeshAgent navMeshAgent;
@@ -63,34 +47,6 @@ public class OtherChicken : MonoBehaviour {
         
         AdjustSpritesBasedOnAngle();
 	}
-    
-    private void MoveChickenUp()
-    {
-        SwapSpriteUp();
-        this.transform.rotation = Quaternion.Euler(0, 0, 0);
-        this.transform.position += this.transform.forward * Time.deltaTime * ChickenSpeed;
-    }
-    
-    private void MoveChickenDown()
-    {
-        SwapSpriteDown();
-        this.transform.rotation = Quaternion.Euler(0, 180, 0);
-        this.transform.position += this.transform.forward * Time.deltaTime * ChickenSpeed;
-    }
-    
-    private void MoveChickenLeft()
-    {
-        SwapSpriteLeft();
-        this.transform.rotation = Quaternion.Euler(0, 270, 0);
-        this.transform.position += this.transform.forward * Time.deltaTime * ChickenSpeed;
-    }
-    
-    private void MoveChickenRight()
-    {
-        SwapSpriteRight();
-        this.transform.rotation = Quaternion.Euler(0, 90, 0);
-        this.transform.position += this.transform.forward * Time.deltaTime * ChickenSpeed;
-    }
     
     private void SwapSpriteUp()
     {
@@ -134,77 +90,6 @@ public class OtherChicken : MonoBehaviour {
         UpImageSet.gameObject.SetActive(false);
         
         currentFacingDirection = Position.Right;
-    }
-    
-    private void SwapAnimationSprites()
-    {
-        switch (currentFacingDirection)
-        {
-            case Position.Up:
-                {
-                    if (currentSprite == 0)
-                    {
-                        UpSprite0.gameObject.SetActive(false);
-                        UpSprite1.gameObject.SetActive(true);
-                        currentSprite = 1;
-                    }
-                    else
-                    {
-                        UpSprite0.gameObject.SetActive(true);
-                        UpSprite1.gameObject.SetActive(false);
-                        currentSprite = 0;
-                    }
-                }
-                break;
-            case Position.Down:
-                {
-                    if (currentSprite == 0)
-                    {
-                        DownSprite0.gameObject.SetActive(false);
-                        DownSprite1.gameObject.SetActive(true);
-                        currentSprite = 1;
-                    }
-                    else
-                    {
-                        DownSprite0.gameObject.SetActive(true);
-                        DownSprite1.gameObject.SetActive(false);
-                        currentSprite = 0;
-                    }
-                }
-                break;
-            case Position.Left:
-                {
-                    if (currentSprite == 0)
-                    {
-                        LeftSprite0.gameObject.SetActive(false);
-                        LeftSprite1.gameObject.SetActive(true);
-                        currentSprite = 1;
-                    }
-                    else
-                    {
-                        LeftSprite0.gameObject.SetActive(true);
-                        LeftSprite1.gameObject.SetActive(false);
-                        currentSprite = 0;
-                    }
-                }
-                break;
-            case Position.Right:
-                {
-                    if (currentSprite == 0)
-                    {
-                        RightSprite0.gameObject.SetActive(false);
-                        RightSprite1.gameObject.SetActive(true);
-                        currentSprite = 1;
-                    }
-                    else
-                    {
-                        RightSprite0.gameObject.SetActive(true);
-                        RightSprite1.gameObject.SetActive(false);
-                        currentSprite = 0;
-                    }
-                }
-                break;
-        }
     }
     
     private void MoveToNewDestination()
@@ -255,7 +140,5 @@ public class OtherChicken : MonoBehaviour {
         {
             currentFacingDirection = Position.Left;
         }
-        
-        SwapAnimationSprites();
     }
 }
