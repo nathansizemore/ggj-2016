@@ -34,7 +34,7 @@ public class Chicken : MonoBehaviour {
         Right
     };
     private uint currentSprite = 0;
-    private Position currentPosition;
+    private Position currentFacingDirection;
     
 	void Start()
     {
@@ -124,7 +124,7 @@ public class Chicken : MonoBehaviour {
         LeftImageSet.gameObject.SetActive(false);
         RightImageSet.gameObject.SetActive(false);
         
-        currentPosition = Position.Up;
+        currentFacingDirection = Position.Up;
     }
     
     private void SwapSpriteDown()
@@ -135,7 +135,7 @@ public class Chicken : MonoBehaviour {
         LeftImageSet.gameObject.SetActive(false);
         RightImageSet.gameObject.SetActive(false);
         
-        currentPosition = Position.Down;
+        currentFacingDirection = Position.Down;
     }
     
     private void SwapSpriteLeft()
@@ -146,7 +146,7 @@ public class Chicken : MonoBehaviour {
         UpImageSet.gameObject.SetActive(false);
         RightImageSet.gameObject.SetActive(false);
         
-        currentPosition = Position.Left;
+        currentFacingDirection = Position.Left;
     }
     
     private void SwapSpriteRight()
@@ -157,12 +157,12 @@ public class Chicken : MonoBehaviour {
         LeftImageSet.gameObject.SetActive(false);
         UpImageSet.gameObject.SetActive(false);
         
-        currentPosition = Position.Right;
+        currentFacingDirection = Position.Right;
     }
     
     private void SwapAnimationSprites()
     {
-        switch (currentPosition)
+        switch (currentFacingDirection)
         {
             case Position.Up:
                 {
