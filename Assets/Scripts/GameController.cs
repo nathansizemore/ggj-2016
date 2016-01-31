@@ -45,15 +45,15 @@ public class GameController : MonoBehaviour {
         StartCoroutine(LoadNextLevel());
     }
     
-    public void setQueuedPowerup(Powerup p){
-        queuedPowerup = p;
-        if (p != null){
-            powerupText.text = p.getDisplayText();
-        }else{
-            powerupText.text = "None";
-        }
+    // public void setQueuedPowerup(Powerup p){
+    //     queuedPowerup = p;
+    //     if (p != null){
+    //         powerupText.text = p.getDisplayText();
+    //     }else{
+    //         powerupText.text = "None";
+    //     }
         
-    }
+    // }
     
     void setDayText(){
         dayText.text = "Day " + currentDay;
@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour {
         // if global thing, do here 
         
         // cleanup
-        setQueuedPowerup(null);    
+        //setQueuedPowerup(null);    
     }
     
     IEnumerator LoadNextLevel() {

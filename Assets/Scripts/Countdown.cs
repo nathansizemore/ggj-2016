@@ -29,7 +29,7 @@ public class Countdown : MonoBehaviour {
     }
     
     void tick(){
-        Debug.Log("tick");
+        //Debug.Log("tick");
         currentCount -=1;
         if (currentCount < 0){
             if (OnElapsed != null){

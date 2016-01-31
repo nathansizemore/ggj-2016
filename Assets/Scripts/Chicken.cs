@@ -107,25 +107,7 @@ public class Chicken : MonoBehaviour {
         this.transform.rotation = Quaternion.Euler(0, 90, 0);
         this.transform.position += this.transform.forward * Time.deltaTime * ChickenSpeed;
     }
-    
       
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Powerup")
-        {
-             gc.setQueuedPowerup(other.gameObject.GetComponent<Powerup>());
-        }
-        Destroy(other.gameObject);
-    }
-    
-    void usePowerup(){
-        // use it here
-        
-        
-        // clean it up
-        gc.setQueuedPowerup(null);
-        
-    }
-    
     private void SwapSpriteUp()
     {
         UpImageSet.gameObject.SetActive(true);
@@ -243,6 +225,6 @@ public class Chicken : MonoBehaviour {
     
     private void StartGameOverScreen()
     {
-        // Hook up to Dusty's code here
+        gc.gameOver();
     }
 }
