@@ -8,7 +8,7 @@ public class Human : MonoBehaviour
     private float tSinceLastChickenTarget = 0f;
     private GameObject[] chickens;
     
-    public bool active =false;
+    public bool active = false;
     
     private void Start()
     {

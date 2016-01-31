@@ -4,12 +4,37 @@ public class Chicken : MonoBehaviour {
 
 	public float ChickenSpeed = 20.5f;
     
-    public SpriteRenderer UpSprite;
-    public SpriteRenderer DownSprite;
-    public SpriteRenderer LeftSprite;
-    public SpriteRenderer RightSprite;
+    public GameObject UpImageSet;
+    public GameObject DownImageSet;
+    public GameObject LeftImageSet;
+    public GameObject RightImageSet;
+    
+    
+    public SpriteRenderer UpSprite0;
+    public SpriteRenderer UpSprite1;
+    public SpriteRenderer DownSprite0;
+    public SpriteRenderer DownSprite1;
+    public SpriteRenderer LeftSprite0;
+    public SpriteRenderer LeftSprite1;
+    public SpriteRenderer RightSprite0;
+    public SpriteRenderer RightSprite1;
+    
    
 	GameController gc;
+    
+    
+    public float SpriteSwapInterval = 0.150f; // Seconds
+    private float tSinceLastSpriteSwap = 0;
+    
+    private enum Position
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    };
+    private uint currentSprite = 0;
+    private Position currentPosition;
     
 	void Start()
     {
@@ -19,6 +44,7 @@ public class Chicken : MonoBehaviour {
     
 	void Update() 
 	{
+        this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		if (Input.GetKey(KeyCode.W)) 
 		{
 			MoveChickenUp();
@@ -36,9 +62,11 @@ public class Chicken : MonoBehaviour {
             MoveChickenRight();
         }
         
-        if (Input.GetButtonDown("Fire1"))
+        tSinceLastSpriteSwap += Time.deltaTime;
+        if (tSinceLastSpriteSwap > SpriteSwapInterval)
         {
-            usePowerup();
+            SwapAnimationSprites();
+            tSinceLastSpriteSwap = 0;
         }
 	}
     
@@ -90,37 +118,116 @@ public class Chicken : MonoBehaviour {
     
     private void SwapSpriteUp()
     {
-        UpSprite.gameObject.SetActive(true);
+        UpImageSet.gameObject.SetActive(true);
         
-        DownSprite.gameObject.SetActive(false);
-        LeftSprite.gameObject.SetActive(false);
-        RightSprite.gameObject.SetActive(false);
+        DownImageSet.gameObject.SetActive(false);
+        LeftImageSet.gameObject.SetActive(false);
+        RightImageSet.gameObject.SetActive(false);
+        
+        currentPosition = Position.Up;
     }
     
     private void SwapSpriteDown()
     {
-        DownSprite.gameObject.SetActive(true);
+        DownImageSet.gameObject.SetActive(true);
         
-        UpSprite.gameObject.SetActive(false);        
-        LeftSprite.gameObject.SetActive(false);
-        RightSprite.gameObject.SetActive(false);
+        UpImageSet.gameObject.SetActive(false);
+        LeftImageSet.gameObject.SetActive(false);
+        RightImageSet.gameObject.SetActive(false);
+        
+        currentPosition = Position.Down;
     }
     
     private void SwapSpriteLeft()
     {
-        LeftSprite.gameObject.SetActive(true);
+        LeftImageSet.gameObject.SetActive(true);
         
-        UpSprite.gameObject.SetActive(false);
-        DownSprite.gameObject.SetActive(false);        
-        RightSprite.gameObject.SetActive(false);
+        DownImageSet.gameObject.SetActive(false);
+        UpImageSet.gameObject.SetActive(false);
+        RightImageSet.gameObject.SetActive(false);
+        
+        currentPosition = Position.Left;
     }
     
     private void SwapSpriteRight()
     {
-        RightSprite.gameObject.SetActive(true);
+        RightImageSet.gameObject.SetActive(true);
         
-        UpSprite.gameObject.SetActive(false);
-        DownSprite.gameObject.SetActive(false);
-        LeftSprite.gameObject.SetActive(false);
+        DownImageSet.gameObject.SetActive(false);
+        LeftImageSet.gameObject.SetActive(false);
+        UpImageSet.gameObject.SetActive(false);
+        
+        currentPosition = Position.Right;
+    }
+    
+    private void SwapAnimationSprites()
+    {
+        switch (currentPosition)
+        {
+            case Position.Up:
+                {
+                    if (currentSprite == 0)
+                    {
+                        UpSprite0.gameObject.SetActive(false);
+                        UpSprite1.gameObject.SetActive(true);
+                        currentSprite = 1;
+                    }
+                    else
+                    {
+                        UpSprite0.gameObject.SetActive(true);
+                        UpSprite1.gameObject.SetActive(false);
+                        currentSprite = 0;
+                    }
+                }
+                break;
+            case Position.Down:
+                {
+                    if (currentSprite == 0)
+                    {
+                        DownSprite0.gameObject.SetActive(false);
+                        DownSprite1.gameObject.SetActive(true);
+                        currentSprite = 1;
+                    }
+                    else
+                    {
+                        DownSprite0.gameObject.SetActive(true);
+                        DownSprite1.gameObject.SetActive(false);
+                        currentSprite = 0;
+                    }
+                }
+                break;
+            case Position.Left:
+                {
+                    if (currentSprite == 0)
+                    {
+                        LeftSprite0.gameObject.SetActive(false);
+                        LeftSprite1.gameObject.SetActive(true);
+                        currentSprite = 1;
+                    }
+                    else
+                    {
+                        LeftSprite0.gameObject.SetActive(true);
+                        LeftSprite1.gameObject.SetActive(false);
+                        currentSprite = 0;
+                    }
+                }
+                break;
+            case Position.Right:
+                {
+                    if (currentSprite == 0)
+                    {
+                        RightSprite0.gameObject.SetActive(false);
+                        RightSprite1.gameObject.SetActive(true);
+                        currentSprite = 1;
+                    }
+                    else
+                    {
+                        RightSprite0.gameObject.SetActive(true);
+                        RightSprite1.gameObject.SetActive(false);
+                        currentSprite = 0;
+                    }
+                }
+                break;
+        }
     }
 }
