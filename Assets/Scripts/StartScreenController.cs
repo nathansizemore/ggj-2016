@@ -27,7 +27,16 @@ public class StartScreenController : MonoBehaviour {
     }
     
     void doneFading(){
-        SceneManager.LoadScene("Final");
+        bool startScreen = this.gameObject.CompareTag("Start");
+        if (startScreen)
+        {
+            SceneManager.LoadScene("Story");
+        }
+        else
+        {
+            SceneManager.LoadScene("Final");
+        }
+        
     }
     
     
