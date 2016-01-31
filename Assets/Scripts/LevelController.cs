@@ -26,7 +26,11 @@ public class LevelController : MonoBehaviour {
         
         for (int x = 0; x < chickens.Length; x++)
         {
-            chickens[x].GetComponent<OtherChicken>().active = true;
+           OtherChicken oc =  chickens[x].GetComponent<OtherChicken>();
+           if (oc != null){
+             oc.active = true;  
+           }
+           
         }
     }
 }

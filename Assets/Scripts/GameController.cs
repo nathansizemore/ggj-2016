@@ -17,9 +17,12 @@ public class GameController : MonoBehaviour {
     
     public Text powerupText;
     
+    public Countdown countdown;
+    
+    
 	// Use this for initialization
 	void Start () {
-          SceneManager.UnloadScene(1);
+       SceneManager.UnloadScene(1);
        chicken = GameObject.FindGameObjectWithTag("Chicken").GetComponent<Chicken>();
 	   startGame();
         
@@ -85,9 +88,19 @@ public class GameController : MonoBehaviour {
         GameObject spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
         chicken.gameObject.transform.position =spawnPoint.transform.position;
         chicken.gameObject.transform.rotation = spawnPoint.transform.rotation;
-        
-        lvlController.begin();
+       
+       countdown.OnElapsed += HandleCountdownElapsed;
+       countdown.startCountdown();
+       // lvlController.begin();
         
     }
-  
+ 
+    void HandleCountdownElapsed(){
+        Debug.Log("elapsed");
+        lvlController.begin();
+    } 
+    
+    public void gameOver(){
+        SceneManager.LoadScene("GameOver");
+    }
 }
